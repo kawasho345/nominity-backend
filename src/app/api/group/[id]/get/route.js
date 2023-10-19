@@ -8,7 +8,6 @@ const GET = async(request, { params }) => {
         await connectDB();
         const groupId = params.id;
         const currentGroup = await Group.findById(groupId);
-        const { updatedAt, ...other } = currentGroup._doc;
 
         return NextResponse.json(
             { body: {

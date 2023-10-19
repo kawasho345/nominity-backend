@@ -6,13 +6,12 @@ import { User } from "@/utils/User";
 const POST = async(request) => {
     try {
         await connectDB();
-        const { groupName, invitationCode, icon, userId } = await request.json();
+        const { groupName, invitationCode, groupIcon, userId } = await request.json();
 
-        console.log(userId)
         const newGroup = await new Group({
             name: groupName,
             invitation_code: invitationCode,
-            icon: icon,
+            icon: groupIcon,
             members: userId,
         });
         const group = await newGroup.save();

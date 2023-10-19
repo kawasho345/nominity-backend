@@ -5,7 +5,7 @@ import { User } from "@/utils/User"
 const POST = async(request) => {
     try {
         await connectDB()
-        const { username, email, icon } = await request.json();
+        const { username, email, userIcon } = await request.json();
 
         const currentUser = await User.findOne({ email: email });
         //ユーザーが見つからなければ新規作成
@@ -13,7 +13,7 @@ const POST = async(request) => {
             const newUser = await new User({
                 username: username,
                 email: email,
-                icon: icon,
+                icon: userIcon,
             });
             const user = await newUser.save();
 
@@ -21,7 +21,7 @@ const POST = async(request) => {
                 { body: {
                     userId: user._id.toString(),
                     username: user.username,
-                    icon: user.icon,
+                    userIcon: user.icon,
                     joinGroups: user.join_groups,
                     lastGroup: user.last_group,
                 }},
@@ -33,7 +33,7 @@ const POST = async(request) => {
             { body: {
                 userId: currentUser._id,
                 username: currentUser.username,
-                icon: currentUser.icon,
+                userIcon: currentUser.icon,
                 joinGroups: currentUser.join_groups,
                 lastGroup: currentUser.last_group,
             }},
