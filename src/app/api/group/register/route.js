@@ -20,8 +20,9 @@ const POST = async(request) => {
             $push: { join_groups: groupId },
         });
 
+        console.log(groupId)
         return NextResponse.json(
-            { body: groupId },
+            { body: { groupId: groupId } },
             { message: "グループを作成しました。" },
             { status: 200 },
         );
