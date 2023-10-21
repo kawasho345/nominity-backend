@@ -15,18 +15,18 @@ const PUT = async(request, { params }) => {
                 $set: body,
             });
             return NextResponse.json(
-                { message: "グループ情報を更新しました。" },
                 { status: 200 },
-            )
+            );
         }else{
             return NextResponse.json(
-                { message: "他のグループの情報は変更できません" },
+                { error: "他のグループの情報は変更できません。" },
                 { status: 403 },
-            )
+            );
         }
-    }catch(err){
+    }catch(error){
+        console.error(error)
         return NextResponse.json(
-            { message: err },
+            { error: "通信に失敗しました。" },
             { status: 500 },
         );
     }

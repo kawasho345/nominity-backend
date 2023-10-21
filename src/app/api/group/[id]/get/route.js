@@ -10,16 +10,16 @@ const GET = async(request, { params }) => {
         const currentGroup = await Group.findById(groupId);
 
         return NextResponse.json(
-            { body: {
+            {
                 groupName: currentGroup.name,
                 groupIcon: currentGroup.icon,
-            }},
-            { status: 200 },
+            },
+            { status: 200 }, 
         );
-    }catch(err){
-        console.log(err)
+    }catch(error){
+        console.error(error)
         return NextResponse.json(
-            { message: err },
+            { error: "通信に失敗しました。" },
             { status: 500 },
         );
     }

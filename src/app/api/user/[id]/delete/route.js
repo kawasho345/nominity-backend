@@ -13,18 +13,19 @@ const DELETE = async(request, { params }) => {
             await User.findByIdAndDelete(userId);
             return NextResponse.json(
                 { message: "アカウントを削除しました。" },
-                { status: 200},
-            )
+                { status: 200 },
+            );
         }else{
             return NextResponse.json(
-                { message: "ログイン中のユーザー以外の削除はできません" },
+                { error: "ログイン中のユーザー以外の削除はできません。" },
                 { status: 403 },
-            )
+            );
         }
-    }catch(err){
+    }catch(error){
+        console.error(error);
         return NextResponse.json(
-            { message: err },
-            { status: 500 },
+            { error: "通信に失敗しました。" },
+            { status: 500 }, 
         );
     }
 }

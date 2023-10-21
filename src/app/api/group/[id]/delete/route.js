@@ -22,18 +22,18 @@ const DELETE = async(request, { params }) => {
             await Group.findByIdAndDelete(groupId);
             
             return NextResponse.json(
-                { message: "グループを削除しました。" },
-                { status: 200},
-            )
+                { status: 200 },
+            );
         }else{
             return NextResponse.json(
-                { message: "他のグループの削除はできません" },
+                { error: "他のグループの削除はできません。" },
                 { status: 403 },
-            )
+            );
         }
-    }catch(err){
+    }catch(error){
+        console.error(error);
         return NextResponse.json(
-            { message: err },
+            { error: "通信に失敗しました。" },
             { status: 500 },
         );
     }

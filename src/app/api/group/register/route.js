@@ -6,7 +6,12 @@ import { User } from "@/utils/User";
 const POST = async(request) => {
     try {
         await connectDB();
-        const { groupName, invitationCode, groupIcon, userId } = await request.json();
+        const { groupName, groupIcon, userId } = await request.json();
+
+        //招待コードをhash関数で作成
+        const uint8 = new TextEncoder().encode(groupName + Date.now());
+        const digest = await crypto.subtle.digest('SHA-256', uint8);
+        const invitationCode = Array.from(new Uint8Array(digest)).map(v => v.toString(16).padStart(2,'0')).join('')
 
         const newGroup = await new Group({
             name: groupName,
@@ -22,15 +27,14 @@ const POST = async(request) => {
 
         console.log(groupId)
         return NextResponse.json(
-            { body: { groupId: groupId } },
-            { message: "グループを作成しました。" },
-            { status: 200 },
+            { groupId: groupId },
+            { status: 200 }, 
         );
-    } catch (err) {
-        console.log(err)
+    } catch (error) {
+        console.error(error)
         return NextResponse.json(
-            { message: err },
-            { status: 500 },
+            { error: "通信に失敗しました。" },
+            { status: 500 }, 
         );
     }
 }

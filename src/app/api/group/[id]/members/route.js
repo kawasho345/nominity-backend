@@ -18,18 +18,16 @@ const GET = async(request, { params }) => {
         const userIcons = members.map((user) => user.icon)
 
         return NextResponse.json(
-            { body: {usernames, userIcons } },
-            { status: 200},
-        )
-
-    }catch(err){
-        console.log(err)
+            {usernames, userIcons},
+            { status: 200 },
+        );
+    }catch(error){
+        console.error(error);
         return NextResponse.json(
-            { message: "エラー" },
+            { message: "通信に失敗しました。" },
             { status: 500 },
         );
     }
-
 }
 
 export { GET }

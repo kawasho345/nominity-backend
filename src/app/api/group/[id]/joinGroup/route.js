@@ -10,25 +10,33 @@ const PUT = async(request, { params }) => {
         const { userId } = await request.json();
 
         const joinGroup = await Group.findOne({ invitation_code: invitationCode })
-        const joinGroupId = joinGroup._id;
-        await joinGroup.updateOne({
-            $pull: { groupmember: userId }
-        })
-        const joinedUser = await User.findById(userId);
-        await joinedUser.updateOne({
-            $pull: { join_groups: joinGroupId }
-        })
+        if(joinGroup){
+
+            const joinGroupId = joinGroup._id;
+            await joinGroup.updateOne({
+                $addToSet: { groupmember: userId }
+            });
+            const joinedUser = await User.findById(userId);
+            await joinedUser.updateOne({
+                $addToSet: { join_groups: joinGroupId }
+            });
+            return NextResponse.json(
+                { joinGroupId: joinGroupId },
+                { status: 200 }
+            );
+        }
 
         return NextResponse.json(
-            { body: joinGroupId },
-            { status: 200 },
+            { error: "無効な招待コードです。"},
+            { status: 403 },
         );
-    }catch(err){
-        console.log(err)
+    }catch(error){
+        console.error(error)
         return NextResponse.json(
-            { message: "エラー" },
+            { error: "通信に失敗しました。" },
             { status: 500 },
         );
-        
     }
 }
+
+export { PUT }

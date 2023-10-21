@@ -18,31 +18,31 @@ const POST = async(request) => {
             const user = await newUser.save();
 
             return NextResponse.json(
-                { body: {
+                {
                     userId: user._id.toString(),
                     username: user.username,
                     userIcon: user.icon,
                     joinGroups: user.join_groups,
                     lastGroup: user.last_group,
-                }},
+                },
                 { status: 200 },
             );
         }
 
-        return NextResponse.json(
-            { body: {
+        return NextResponse.json( 
+            {
                 userId: currentUser._id,
                 username: currentUser.username,
                 userIcon: currentUser.icon,
                 joinGroups: currentUser.join_groups,
                 lastGroup: currentUser.last_group,
-            }},
+            },
             { status: 200 },
         );
-    } catch (err) {
-        console.log(err)
+    } catch (error) {
+        console.error(error)
         return NextResponse.json(
-            { message: err },
+            { error: "通信に失敗しました。" },
             { status: 500 },
         );
     }
