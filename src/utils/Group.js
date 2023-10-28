@@ -20,10 +20,6 @@ const GroupSchema = new mongoose.Schema(
             type: Array,
             default: [],
         },
-        schedules: {
-            type: Array,
-            default: [],
-        },
     },
     { timestamps: true }
 )

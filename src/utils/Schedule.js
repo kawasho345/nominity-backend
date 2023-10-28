@@ -43,7 +43,7 @@ const ScheduleSchema = new mongoose.Schema(
             maxlength: 200,
             default: "",
         },
-        group: {
+        group_id: {
             type: String,
             required: true,
         }

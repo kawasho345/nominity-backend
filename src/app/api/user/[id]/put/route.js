@@ -19,14 +19,14 @@ const PUT = async(request, { params }) => {
             );
         }else{
             return NextResponse.json(
-                { error: "ログイン中のユーザー以外の情報は変更できません。" },
+                { error: "ログイン中のユーザー以外の情報は変更できません" },
                 { status: 403 },
             );
         }
     }catch(error){
         console.error(error);
         return NextResponse.json(
-            { error: "通信に失敗しました。" },
+            { error: "通信に失敗しました" },
             { status: 500 },
         );
     }

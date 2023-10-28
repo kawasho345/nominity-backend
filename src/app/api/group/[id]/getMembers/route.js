@@ -1,26 +1,29 @@
 import { NextResponse } from 'next/server';
 import { connectDB } from "@/utils/connectDB";
 import { Group } from "@/utils/Group";
+import { User } from "@/utils/User";
 
-//グループ情報取得
 const GET = async(request, { params }) => {
     try{
         await connectDB();
         const groupId = params.id;
         const currentGroup = await Group.findById(groupId);
 
+        const groupMembers = await Promise.all(
+            currentGroup.members.map((userId) => {
+                return User.findById(userId)
+            })
+        )
+        const members = groupMembers.map((user) => [user._id, user.username, user.icon]);
+
         return NextResponse.json(
-            {
-                groupName: currentGroup.name,
-                groupIcon: currentGroup.icon,
-                invitationCode: currentGroup.invitation_code,
-            },
-            { status: 200 }, 
+            { members },
+            { status: 200 },
         );
     }catch(error){
-        console.error(error)
+        console.error(error);
         return NextResponse.json(
-            { error: "通信に失敗しました" },
+            { message: "通信に失敗しました" },
             { status: 500 },
         );
     }

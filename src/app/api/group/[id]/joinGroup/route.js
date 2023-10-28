@@ -11,15 +11,15 @@ const PUT = async(request, { params }) => {
 
         const joinGroup = await Group.findOne({ invitation_code: invitationCode })
         if(joinGroup){
-
-            const joinGroupId = joinGroup._id;
+            const joinGroupId = joinGroup._id.toString();
             await joinGroup.updateOne({
-                $addToSet: { groupmember: userId }
+                $addToSet: { members: userId }
             });
             const joinedUser = await User.findById(userId);
-            await joinedUser.updateOne({
+            await joinedUser.ne({
                 $addToSet: { join_groups: joinGroupId }
             });
+            
             return NextResponse.json(
                 { joinGroupId: joinGroupId },
                 { status: 200 }
@@ -27,13 +27,13 @@ const PUT = async(request, { params }) => {
         }
 
         return NextResponse.json(
-            { error: "無効な招待コードです。"},
+            { error: "無効な招待コードです"},
             { status: 403 },
         );
     }catch(error){
         console.error(error)
         return NextResponse.json(
-            { error: "通信に失敗しました。" },
+            { error: "通信に失敗しました" },
             { status: 500 },
         );
     }

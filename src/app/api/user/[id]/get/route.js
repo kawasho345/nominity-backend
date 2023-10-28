@@ -17,7 +17,7 @@ const GET = async(request, { params }) => {
     }catch(error){
         console.error(error)
         return NextResponse.json(
-            { error: "通信に失敗しました。" },
+            { error: "通信に失敗しました" },
             { status: 500 },
         );
     }

@@ -34,7 +34,7 @@ const POST = async(request) => {
                 userId: currentUser._id,
                 username: currentUser.username,
                 userIcon: currentUser.icon,
-                joinGroups: currentUser.join_groups,
+                joinGroupIds: currentUser.join_groups,
                 lastGroup: currentUser.last_group,
             },
             { status: 200 },
@@ -42,7 +42,7 @@ const POST = async(request) => {
     } catch (error) {
         console.error(error)
         return NextResponse.json(
-            { error: "通信に失敗しました。" },
+            { error: "通信に失敗しました" },
             { status: 500 },
         );
     }

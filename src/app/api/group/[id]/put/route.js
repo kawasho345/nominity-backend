@@ -6,30 +6,45 @@ import { Group } from "@/utils/Group";
 const PUT = async(request, { params }) => {
     try{
         await connectDB()
-        const body =  await request.json();
-        const { currentGroupId } = body;
+        const {
+            userId,
+            groupName,
+            groupIcon,   
+        } = await request.json()
         const groupId = params.id;
 
-        if(currentGroupId === groupId){
-            await Group.findByIdAndUpdate(groupId, {
-                $set: body,
+        const group = await Group.findById(groupId);
+        if(group.members.includes(userId)){
+            await group.updateOne({
+                $set: {
+                    name: groupName,
+                    icon: groupIcon,
+                }
             });
+            
             return NextResponse.json(
+                { name: groupName },
                 { status: 200 },
             );
         }else{
             return NextResponse.json(
-                { error: "他のグループの情報は変更できません。" },
+                { error: "所属外のグループの情報は変更できません" },
                 { status: 403 },
             );
         }
     }catch(error){
         console.error(error)
         return NextResponse.json(
-            { error: "通信に失敗しました。" },
+            { error: "通信に失敗しました" },
             { status: 500 },
         );
     }
 }
 
-export { PUT }
+const OPTIONS = () => {
+    return NextResponse.json(
+        { status: 204 },
+    );
+}
+
+export { PUT, OPTIONS }

@@ -1,32 +1,32 @@
 import { NextResponse } from 'next/server';
 import { connectDB } from "@/utils/connectDB";
+import { Questionnaire } from '@/utils/Questionnaire';
 import { Group } from "@/utils/Group";
-import { User } from "@/utils/User";
+import { Date } from '@/utils/Date';
 
-//グループ削除
+//日程調整削除
 const DELETE = async(request, { params }) => {
     try{
         await connectDB()
         const { userId } = await request.json();
-        const groupId = params.id;
+        const questionnaireId = params.id;
 
-        const group = await Group.findById(groupId);
+        const questionnaire = await Questionnaire.findById(questionnaireId);
+        const group = await Group.findById(questionnaire.group_id);
         if(group.members.includes(userId)){
             await Promise.all(
-                currentGroup.groupmember.map(async(memberId) => {
-                    return await User.findByIdAndUpdate(memberId, {
-                        $pull: { groups: groupId } 
-                    })
+                questionnaire.date_ids.map(async(dateId) => {
+                    return await Date.findByIdAndDelete(dateId)
                 })
             )
-            await group.deleteOne();
+            await questionnaire.deleteOne();
             
             return NextResponse.json(
                 { status: 204 },
             );
         }else{
             return NextResponse.json(
-                { error: "所属外のグループの削除はできません" },
+                { error: "所属外のグループの日程調整は削除できません" },
                 { status: 403 },
             );
         }

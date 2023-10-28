@@ -6,25 +6,25 @@ import { User } from "@/utils/User";
 const GET = async(request, { params }) => {
     try{
         await connectDB();
-        const groupId = params.id;
-        const currentGroup = await Group.findById(groupId);
-
-        const members = await Promise.all(
-            currentGroup.groupmember.map((userId) => {
-                return User.findById(userId)
+        const userId = params.id;
+        const user = await User.findById(userId);
+        
+        const groups = await Promise.all(
+            user.join_groups.map((groupId) => {
+                return Group.findById(groupId)
             })
         )
-        const usernames = members.map((user) => user.username);
-        const userIcons = members.map((user) => user.icon)
+        const joinGroups = groups.map((group) => [group._id.toString(), group.name, group.icon]);
 
         return NextResponse.json(
-            {usernames, userIcons},
+            { joinGroups },
             { status: 200 },
         );
+        
     }catch(error){
         console.error(error);
         return NextResponse.json(
-            { message: "通信に失敗しました。" },
+            { message: "通信に失敗しました" },
             { status: 500 },
         );
     }
