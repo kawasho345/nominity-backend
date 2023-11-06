@@ -10,7 +10,7 @@ const PUT = async(request, { params }) => {
         await connectDB()
         const {
             userId,
-            questionnaireSchedules,
+            questionnaireDateSchedules,
             questionnaireRemarks,   
         } = await request.json()
         const questionnaireId = params.id;
@@ -35,7 +35,7 @@ const PUT = async(request, { params }) => {
         })
         //予定の更新
         await Promise.all(
-            questionnaireSchedules.map(async(schedule) => {
+            questionnaireDateSchedules.map(async(schedule) => {
                 if(!questionnaire.date_ids.includes(schedule[0])){
                     isAllComplete = false;
                 }
@@ -43,9 +43,9 @@ const PUT = async(request, { params }) => {
                 const dateMap = new Map(date.schedules);
                 dateMap.delete(userId);
                 dateMap.set(userId, schedule[1]);
-                const pairs = Array.from(dateMap.entries())
+                const dateSchedules = Array.from(dateMap.entries())
                 await date.updateOne({
-                    $set: { schedules: pairs },
+                    $set: { schedules: dateSchedules },
                 });
             })
         );

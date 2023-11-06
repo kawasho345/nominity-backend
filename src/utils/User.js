@@ -5,7 +5,6 @@ const UserSchema = new mongoose.Schema(
         username: {
             type: String,
             required: true,
-            minlength: 3,
             maxlength: 25,
         },
         email: {
@@ -18,7 +17,17 @@ const UserSchema = new mongoose.Schema(
             type: String,
             default: "",
         },
+        favorite_food_text: {
+            type: String,
+            maxlength: 200,
+            default: "",
+        },
         favorite_food: {
+            type: String,
+            maxlength: 200,
+            default: "",
+        },
+        hated_food_text: {
             type: String,
             maxlength: 200,
             default: "",
@@ -28,7 +37,17 @@ const UserSchema = new mongoose.Schema(
             maxlength: 200,
             default: "",
         },
+        favorite_alcohol_text: {
+            type: String,
+            maxlength: 200,
+            default: "",
+        },
         favorite_alcohol: {
+            type: String,
+            maxlength: 200,
+            default: "",
+        },
+        hated_alcohol_text: {
             type: String,
             maxlength: 200,
             default: "",
@@ -39,17 +58,12 @@ const UserSchema = new mongoose.Schema(
             default: "",
         },
         allergy: {
-            type: String,
-            maxlength: 200,
-            default: "",
+            type: Array,
+            default: [],
         },
         join_groups: {
             type: Array,
             default: [],
-        },
-        last_group: {
-            type: String,
-            default: "",
         },
     },
     { timestamps: true }

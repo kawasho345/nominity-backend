@@ -15,7 +15,7 @@ const DELETE = async(request, { params }) => {
             await Promise.all(
                 currentGroup.groupmember.map(async(memberId) => {
                     return await User.findByIdAndUpdate(memberId, {
-                        $pull: { groups: groupId } 
+                        $pull: { join_groups: groupId } 
                     })
                 })
             )

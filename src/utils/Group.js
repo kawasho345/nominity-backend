@@ -5,7 +5,6 @@ const GroupSchema = new mongoose.Schema(
         name: {
             type: String,
             required: true,
-            minlength: 3,
             maxlength: 25,
         },
         invitation_code: {
@@ -20,6 +19,22 @@ const GroupSchema = new mongoose.Schema(
             type: Array,
             default: [],
         },
+        favorite_food: {
+            type: String,
+            default: "",
+        },
+        hated_food: {
+            type: String,
+            default: "",
+        },
+        favorite_alcohol: {
+            type: String,
+            default: "",
+        },
+        hated_alcohol: {
+            type: String,
+            default: "",
+        }
     },
     { timestamps: true }
 )

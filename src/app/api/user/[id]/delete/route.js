@@ -5,7 +5,7 @@ import { User } from "@/utils/User";
 //ユーザーアカウント削除
 const DELETE = async(request, { params }) => {
     try{
-        await connectDB()
+        await connectDB();
         const userId = params.id;
         const { currentUserId } = await request.json();
 

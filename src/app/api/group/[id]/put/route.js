@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { connectDB } from "@/utils/connectDB";
 import { Group } from "@/utils/Group";
 
-//ユーザー情報更新
+//グループ情報更新
 const PUT = async(request, { params }) => {
     try{
         await connectDB()

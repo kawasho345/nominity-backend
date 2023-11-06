@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { connectDB } from "@/utils/connectDB";
 import { Group } from "@/utils/Group";
 import { User } from "@/utils/User";
+import { list } from '@/lib/list';
 
 const PUT = async(request, { params }) => {
     try{
@@ -19,7 +20,17 @@ const PUT = async(request, { params }) => {
             await joinedUser.ne({
                 $addToSet: { join_groups: joinGroupId }
             });
-            
+            const preference = [
+                "favorite_food",
+                "hated_food",
+                "favorite_alcohol",
+                "hated_alcohol",
+            ]
+            preference.forEach(element => {
+                list(joinGroupId, type = element);    
+            });
+            listAllergy(joinGroupId);
+                        
             return NextResponse.json(
                 { joinGroupId: joinGroupId },
                 { status: 200 }

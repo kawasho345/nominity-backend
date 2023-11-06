@@ -1,24 +1,24 @@
 import { NextResponse } from 'next/server';
 import { connectDB } from "@/utils/connectDB";
-import { Schedule } from "@/utils/Schedule";
+import { Restaurant } from '@/utils/Restaurant';
 import { Group } from '@/utils/Group';
 
-//スケジュール情報削除
+//お店リストから削除
 const DELETE = async(request, { params }) => {
     try{
         await connectDB()
         const { userId } = await request.json();
-        const scheduleId = params.id;
-        const schedule = await Schedule.findById(scheduleId);
-        const group = await Group.findById(schedule.group_id);
+        const restaurantId = params.id;
+        const restaurant = await Restaurant.findById(restaurantId);
+        const group = await Group.findById(restaurant.group_id);
 
         if(!group.members.includes(userId)){
             return NextResponse.json(
-                { message: "他のグループのスケジュール情報は削除できません" },
+                { message: "他のグループのお店リストは削除できません" },
                 { status: 403 },
             )
         }
-        await schedule.deleteOne();
+        await restaurant.deleteOne();
         
         return NextResponse.json(
             { status: 204 },

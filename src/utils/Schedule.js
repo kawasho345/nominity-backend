@@ -8,12 +8,13 @@ const ScheduleSchema = new mongoose.Schema(
             maxlength: 25,
         },
         date: {
-            type: Date,
+            type: String,
             default: "",
+            maxlength: 100,
         },
         restaurant_name: {
             type: String,
-            maxlength: 25,
+            maxlength: 100,
             default: "",
         },
         restaurant_address: {
@@ -23,6 +24,7 @@ const ScheduleSchema = new mongoose.Schema(
         },
         restaurant_url: {
             type: String,
+            maxlength: 500,
             default: "",
         },
         restaurant_image: {
@@ -37,6 +39,7 @@ const ScheduleSchema = new mongoose.Schema(
         number_people: {
             type: String, 
             default: "",
+            maxlength: 50,
         },
         remarks: {
             type: String,

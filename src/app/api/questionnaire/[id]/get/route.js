@@ -5,7 +5,6 @@ import { Group } from "@/utils/Group";
 import { Date } from '@/utils/Date';
 
 //日程調整取得
-//保留
 const GET = async(request, { params }) => {
     try{
         await connectDB();
