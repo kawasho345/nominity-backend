@@ -1,7 +1,3 @@
 {
-    "functions": {
-      "api/user/verification/route.js": {
-        "maxDuration": 60
-      }
-    }
-  }
+    "maxDuration": 60
+}
