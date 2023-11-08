@@ -16,20 +16,17 @@ const PUT = async(request, { params }) => {
             await joinGroup.updateOne({
                 $addToSet: { members: userId }
             });
-            const joinedUser = await User.findById(userId);
-            await joinedUser.ne({
+            await User.findByIdAndUpdate(userId, {
                 $addToSet: { join_groups: joinGroupId }
             });
-            const preference = [
+            const types = [
                 "favorite_food",
-                "hated_food",
-                "favorite_alcohol",
-                "hated_alcohol",
+                // "hated_food",
+                // "favorite_alcohol",
+                // "hated_alcohol",
             ]
-            preference.forEach(element => {
-                list(joinGroupId, type = element);    
-            });
-            listAllergy(joinGroupId);
+            list(joinGroupId, types);    
+            // listAllergy(joinGroupId);
                         
             return NextResponse.json(
                 { joinGroupId: joinGroupId },

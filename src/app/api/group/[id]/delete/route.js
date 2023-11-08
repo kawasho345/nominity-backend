@@ -13,7 +13,7 @@ const DELETE = async(request, { params }) => {
         const group = await Group.findById(groupId);
         if(group.members.includes(userId)){
             await Promise.all(
-                currentGroup.groupmember.map(async(memberId) => {
+                group.members.map(async(memberId) => {
                     return await User.findByIdAndUpdate(memberId, {
                         $pull: { join_groups: groupId } 
                     })

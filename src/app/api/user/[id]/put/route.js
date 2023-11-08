@@ -32,9 +32,9 @@ const PUT = async(request, { params }) => {
         if(user.hated_alcohol_text !== hatedAlcoholText){
             extract( text = hatedAlcoholText, userId, type = "hated_alcohol");
         }
-        if(user.allergy !== allergy){
-            listAllergy(userId);
-        }
+        // if(user.allergy !== allergy){
+        //     listAllergy(userId);
+        // }
         await user.updateOne(userId, {
             $set: {
                 name: userName,

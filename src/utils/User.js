@@ -61,6 +61,10 @@ const UserSchema = new mongoose.Schema(
             type: Array,
             default: [],
         },
+        allergy_text: {
+            type: String,
+            default: "",
+        },
         join_groups: {
             type: Array,
             default: [],
