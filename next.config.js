@@ -15,6 +15,14 @@ const nextConfig = {
                         value: "http://localhost:3000",
                     },
                     {
+                        key: "Access-Control-Allow-Origin",
+                        value: "https://nominity-frontend.onrender.com",
+                    },
+                    {
+                        key: "Access-Control-Allow-Origin",
+                        value: "https://nominity-frontend.vercel.app",
+                    },
+                    {
                         key: "Access-Control-Allow-Methods",
                         value: "GET, POST, PUT, DELETE, OPTIONS",
                     },
