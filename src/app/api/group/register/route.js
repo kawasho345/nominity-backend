@@ -22,15 +22,15 @@ const POST = async(request) => {
         const group = await newGroup.save();
         const groupId = group._id.toString();
         await User.findByIdAndUpdate(userId, {
-            $addToSet: { join_groups: groupId }
-        });
+            $push: { join_groups: groupId }
+        })
+        console.log(userId)
         // const user = await User.findById(userId)
         // console.log(user)
         // await user.updateOne({
         //     $addToSet: { join_groups: groupId}
         // })
 
-        // console.log(groupId)
         return NextResponse.json(
             { groupId: groupId },
             { status: 200 }, 

@@ -13,6 +13,7 @@ const QuestionnaireSchema = new mongoose.Schema(
         },
         overview: {
             type: String,
+            maxlength: 200,
             default: "",
         },
         remarks: {

@@ -30,7 +30,10 @@ const GET = async(request, { params }) => {
 
         return NextResponse.json(
             {
-                questionnaire: currentQuestionnaire,
+                questionnaireName: questionnaire.name,
+                questionnaireOverview: questionnaire.overview,
+                questionnaireDates: currentQuestionnaire,
+                questionnaireRemarks: questionnaire.remarks,
             },
             { status: 200 }, 
         );

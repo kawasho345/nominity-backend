@@ -8,19 +8,20 @@ import { Date } from '@/utils/Date';
 const POST = async(request) => {
     try {
         await connectDB();
-        const { userId, 
-                groupId,
-                questionnaireName, 
-                questionnaireOverview,
-                questionnaireDates 
-            } = await request.json();
+        const { 
+            userId, 
+            groupId,
+            questionnaireName, 
+            questionnaireOverview,
+            questionnaireDates 
+        } = await request.json();
 
         const group = await Group.findById(groupId);
         if(group.members.includes(userId)){
             const dates = await Promise.all(
                 questionnaireDates.map(async(date) => {
                     const newDate = await new Date({
-                        date: date,
+                        date: date[1],
                     });
                     const currentDate = await newDate.save();
                     return currentDate._id.toString();

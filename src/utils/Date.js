@@ -4,6 +4,7 @@ const DateSchema = new mongoose.Schema(
     {
         date: {
             type: String,
+            maxLength: 50,
             required: true,  
         },
         schedules: {

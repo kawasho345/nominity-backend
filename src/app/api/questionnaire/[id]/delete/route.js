@@ -39,4 +39,10 @@ const DELETE = async(request, { params }) => {
     }
 }
 
-export { DELETE }
+const OPTIONS = () => {
+    return NextResponse.json(
+        { status: 204 },
+    );
+}
+
+export { DELETE, OPTIONS }

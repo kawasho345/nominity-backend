@@ -43,4 +43,10 @@ const PUT = async(request, { params }) => {
     }
 }
 
-export { PUT }
+const OPTIONS = () => {
+    return NextResponse.json(
+        { status: 204 },
+    );
+}
+
+export { PUT, OPTIONS }

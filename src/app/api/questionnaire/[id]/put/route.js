@@ -9,22 +9,26 @@ const PUT = async(request, { params }) => {
     try{
         await connectDB();
         const questionnaireId = params.id;
-        const { userId, 
-                questionnaireName, 
-                questionnaireOverview, 
-                questionnaireDates,
-            } = await request.json()
+        const { 
+            userId, 
+            questionnaireName, 
+            questionnaireOverview, 
+            questionnaireDates,
+        } = await request.json()
 
         const questionnaire = await Questionnaire.findById(questionnaireId);
         const group = await Group.findById(questionnaire.group_id);
         if(group.members.includes(userId)){
             const dates = await Promise.all(
-                questionnaireDates.map(async(date, id) => {
-                    if(id){
-                        return id
+                questionnaireDates.map(async(date) => {
+                    if(date[0]){
+                        await Date.findByIdAndUpdate(date[0], {
+                            $set: { date: date[1] }
+                        })
+                        return date[0]
                     }
                     const newDate = await new Date({
-                        date: date,
+                        date: date[1],
                     })
                     const currentDate = await newDate.save();
                     return currentDate._id.toString();
@@ -56,4 +60,10 @@ const PUT = async(request, { params }) => {
     }
 }
 
-export { PUT }
+const OPTIONS = () => {
+    return NextResponse.json(
+        { status: 204 },
+    );
+}
+
+export { PUT, OPTIONS }
