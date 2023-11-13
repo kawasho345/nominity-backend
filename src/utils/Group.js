@@ -40,8 +40,8 @@ const GroupSchema = new mongoose.Schema(
             default: "",
         },
         allergy_text: {
-            type: String,
-            default: "",
+            type: Array,
+            default: [],
         },
     },
     { timestamps: true }

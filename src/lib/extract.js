@@ -8,8 +8,10 @@ const openai = new OpenAI({
 });
 
 const extract = async(text, userId, type) => {
-
     await connectDB();
+    if(!text){
+        return;
+    }
     const chatCompletion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
                 messages: [

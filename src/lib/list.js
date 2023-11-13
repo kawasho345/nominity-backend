@@ -17,6 +17,9 @@ const list = async(groupId, type) => {
                 return user[type]
             })
         )
+        if(!texts.join("")){
+            return
+        }
 
         const chatCompletion = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",

@@ -3,6 +3,7 @@ import { connectDB } from "@/utils/connectDB";
 import { Group } from "@/utils/Group";
 import { User } from "@/utils/User";
 import { list } from '@/lib/list';
+import { listAllergy } from '@/lib/listAllergy';
 
 const PUT = async(request, { params }) => {
     try{
