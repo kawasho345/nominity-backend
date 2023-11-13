@@ -14,6 +14,12 @@ const GET = async(request, { params }) => {
                 groupName: currentGroup.name,
                 groupIcon: currentGroup.icon,
                 invitationCode: currentGroup.invitation_code,
+                groupFavoriteFood: currentGroup.favorite_food,
+                groupHatedFood: currentGroup.hated_food,
+                groupFavoriteAlcohol: currentGroup.favorite_alcohol,
+                groupHatedAlcohol: currentGroup.hated_alcohol,
+                groupAllergy: currentGroup.allergy,
+                groupAllergyText: currentGroup.allergy_text,
             },
             { status: 200 }, 
         );

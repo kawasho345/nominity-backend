@@ -21,11 +21,21 @@ const PUT = async(request, { params }) => {
                         $pull: { join_groups: groupId }
                     })
                 })
-            )        
+            )     
+            const types = [
+                "favorite_food",
+                "hated_food",
+                "favorite_alcohol",
+                "hated_alcohol",
+            ]
+            types.map((type) => {
+                list(joinGroupId, type);    
+            })
+            listAllergy(joinGroupId);   
         
             return NextResponse.json(
-                    { status: 204 },
-                );
+                { status: 204 },
+            );
         }else{
             return NextResponse.json(
                 { error: "グループメンバーは１人以上必要です"},

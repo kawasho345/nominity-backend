@@ -21,12 +21,14 @@ const PUT = async(request, { params }) => {
             });
             const types = [
                 "favorite_food",
-                // "hated_food",
-                // "favorite_alcohol",
-                // "hated_alcohol",
+                "hated_food",
+                "favorite_alcohol",
+                "hated_alcohol",
             ]
-            list(joinGroupId, types);    
-            // listAllergy(joinGroupId);
+            types.map((type) => {
+                list(joinGroupId, type);    
+            })
+            listAllergy(joinGroupId);
                         
             return NextResponse.json(
                 { joinGroupId: joinGroupId },

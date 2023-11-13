@@ -17,25 +17,23 @@ const PUT = async(request, { params }) => {
             favoriteAlcoholText,
             hatedAlcoholText,
             allergy,
+            allergyText,
         } =  await request.json();
 
         const user = await User.findById(userId);
         if(user.favorite_food_text !== favoriteFoodText){
-            extract(text = favoriteFoodText, userId, type = "favorite_food");
+            extract(favoriteFoodText, userId, "favorite_food");
         }
         if(user.hated_food_text !== hatedFoodText){
-            extract(text = hatedFoodText, userId, type = "hated_food");
+            extract(hatedFoodText, userId, "hated_food");
         }
         if(user.favorite_alcohol_text !== favoriteAlcoholText){
-            extract(text = favoriteAlcoholText, userId, type = "favorite_alcohol");
+            extract(favoriteAlcoholText, userId, "favorite_alcohol");
         }
         if(user.hated_alcohol_text !== hatedAlcoholText){
-            extract( text = hatedAlcoholText, userId, type = "hated_alcohol");
+            extract(hatedAlcoholText, userId, "hated_alcohol");
         }
-        // if(user.allergy !== allergy){
-        //     listAllergy(userId);
-        // }
-        await user.updateOne(userId, {
+        await user.updateOne({
             $set: {
                 name: userName,
                 icon: userIcon,
@@ -44,9 +42,13 @@ const PUT = async(request, { params }) => {
                 favorite_alcohol_text: favoriteAlcoholText,
                 hated_alcohol_text: hatedAlcoholText,
                 allergy: allergy,
+                allergy_text: allergyText,
             }
         })
-
+        user.join_groups.map((groupId) => {
+            listAllergy(groupId);
+        })
+        
         return NextResponse.json(
             { status: 204 },
         )
@@ -60,4 +62,10 @@ const PUT = async(request, { params }) => {
     }
 }
 
-export { PUT }
+const OPTIONS = () => {
+    return NextResponse.json(
+        { status: 204 },
+    );
+}
+
+export { PUT, OPTIONS }

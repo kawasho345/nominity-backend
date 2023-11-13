@@ -34,7 +34,15 @@ const GroupSchema = new mongoose.Schema(
         hated_alcohol: {
             type: String,
             default: "",
-        }
+        },
+        allergy: {
+            type: String,
+            default: "",
+        },
+        allergy_text: {
+            type: String,
+            default: "",
+        },
     },
     { timestamps: true }
 )

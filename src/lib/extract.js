@@ -7,12 +7,7 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
 
-const extract = async(props) => {
-    const {
-        text,
-        userId,
-        type,
-    } = props;
+const extract = async(text, userId, type) => {
 
     await connectDB();
     const chatCompletion = await openai.chat.completions.create({
@@ -29,14 +24,12 @@ const extract = async(props) => {
         ],
     });
     const user = await User.findById(userId);
-    await user.UpdateOne({
+    await user.updateOne({
         $set: { [type]: chatCompletion.choices[0].message.content}
     })
-    await Promise.all(
-        user.group_id.map((groupId) => {
-            list(groupId, type);
-        })
-    )
+    user.join_groups.map((groupId) => {
+        list(groupId, type);
+    })
 }
 
 export { extract }

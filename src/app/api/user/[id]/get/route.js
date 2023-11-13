@@ -11,7 +11,9 @@ const GET = async(request, { params }) => {
         const { password, updatedAt, ...other } = user._doc;
        
         return NextResponse.json(
-            { body: other },
+            { 
+                body: other 
+            },
             { status: 200 },
         );
     }catch(error){

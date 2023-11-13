@@ -35,7 +35,12 @@ const POST = async(request) => {
                 username: currentUser.username,
                 userIcon: currentUser.icon,
                 joinGroupIds: currentUser.join_groups,
-                lastGroup: currentUser.last_group,
+                userFavoriteFood: currentUser.favorite_food_text,
+                userHatedFood: currentUser.hated_food_text,
+                userFavoriteAlcohol: currentUser.favorite_alcohol_text,
+                userHatedAlcohol: currentUser.hated_alcohol_text,
+                userAllergy: currentUser.allergy,
+                userAllergyText: currentUser.allergy_text,
             },
             { status: 200 },
         );
