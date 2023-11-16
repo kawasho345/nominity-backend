@@ -23,7 +23,6 @@ const POST = async(request) => {
                 { status: 403 },
             )
         }
-        console.log(restaurantImage)
         const newRestaurant = await new Restaurant({
             name: restaurantName,
             address: restaurantAddress,
