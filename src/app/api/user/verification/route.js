@@ -19,11 +19,16 @@ const POST = async(request) => {
 
             return NextResponse.json(
                 {
-                    userId: user._id.toString(),
+                    userId: user._id,
                     username: user.username,
                     userIcon: user.icon,
-                    joinGroups: user.join_groups,
-                    lastGroup: user.last_group,
+                    joinGroupIds: user.join_groups,
+                    userFavoriteFood: user.favorite_food_text,
+                    userHatedFood: user.hated_food_text,
+                    userFavoriteAlcohol: user.favorite_alcohol_text,
+                    userHatedAlcohol: user.hated_alcohol_text,
+                    userAllergy: user.allergy,
+                    userAllergyText: user.allergy_text,
                 },
                 { status: 200 },
             );
