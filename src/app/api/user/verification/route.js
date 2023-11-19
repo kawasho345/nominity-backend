@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { connectDB } from "@/utils/connectDB";
 import { User } from "@/utils/User"
 
+//ユーザー情報登録、取得
 const POST = async(request) => {
     try {
         await connectDB()

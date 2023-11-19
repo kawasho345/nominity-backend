@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { connectDB } from "@/utils/connectDB";
 import { Post } from '@/utils/Post';
 
-//チャット編集
+//投稿削除
 const DELETE = async(request, { params }) => {
     try {
         await connectDB();

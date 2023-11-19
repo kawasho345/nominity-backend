@@ -19,7 +19,7 @@ const PUT = async(request, { params }) => {
             allergy,
             allergyText,
         } =  await request.json();
-
+        //項目が更新されていたら、extractで食べ物の抽出を行う
         const user = await User.findById(userId);
         if(user.favorite_food_text !== favoriteFoodText){
             extract(favoriteFoodText, userId, "favorite_food");
@@ -45,6 +45,7 @@ const PUT = async(request, { params }) => {
                 allergy_text: allergyText,
             }
         })
+        //所属グループのアレルギーリストを更新する
         user.join_groups.map((groupId) => {
             listAllergy(groupId);
         })

@@ -3,6 +3,7 @@ import { connectDB } from "@/utils/connectDB";
 import { Group } from '@/utils/Group';
 import { Restaurant } from '@/utils/Restaurant';
 
+//お店リストへ登録
 const POST = async(request) => {
     try {
         await connectDB()

@@ -3,7 +3,7 @@ import { connectDB } from "@/utils/connectDB";
 import { Schedule } from "@/utils/Schedule";
 import { Group } from '@/utils/Group';
 
-//スケジュール情報更新
+//お知らせ更新
 const PUT = async(request, { params }) => {
     try{
         await connectDB()

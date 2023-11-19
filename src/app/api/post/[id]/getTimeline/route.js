@@ -3,7 +3,7 @@ import { connectDB } from "@/utils/connectDB";
 import { Post } from '@/utils/Post';
 import { User } from "@/utils/User";
 
-//チャットタイムライン取得
+//掲示板の投稿を取得
 const GET = async(request, { params }) => {
     try {
         await connectDB();

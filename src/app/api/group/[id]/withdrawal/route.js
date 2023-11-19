@@ -16,6 +16,7 @@ const PUT = async(request, { params }) => {
         if(group.members.length > userIds.length){
             await Promise.all(
                 userIds.map(async(userId) => {
+                    //グループ、ユーザーのリストをそれぞれ更新
                     await group.updateOne({
                         $pull: { members: userId }
                     })
@@ -23,7 +24,8 @@ const PUT = async(request, { params }) => {
                         $pull: { join_groups: groupId }
                     })
                 })
-            )     
+            )
+            //好き嫌いアレルギーリストの更新     
             const types = [
                 "favorite_food",
                 "hated_food",

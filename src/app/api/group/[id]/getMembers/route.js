@@ -3,6 +3,7 @@ import { connectDB } from "@/utils/connectDB";
 import { Group } from "@/utils/Group";
 import { User } from "@/utils/User";
 
+//メンバー情報取得
 const GET = async(request, { params }) => {
     try{
         await connectDB();
@@ -14,6 +15,7 @@ const GET = async(request, { params }) => {
                 return User.findById(userId)
             })
         )
+        //メンバーのidと名前とiconだけ取得
         const members = groupMembers.map((user) => [user._id, user.username, user.icon]);
 
         return NextResponse.json(

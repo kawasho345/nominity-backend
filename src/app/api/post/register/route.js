@@ -3,7 +3,7 @@ import { connectDB } from "@/utils/connectDB";
 import { Group } from "@/utils/Group";
 import { Post } from '@/utils/Post';
 
-//チャット投稿
+//投稿
 const POST = async(request) => {
     try {
         await connectDB();
@@ -31,6 +31,7 @@ const POST = async(request) => {
                 { status: 200 },
             ) 
         }
+        //ボットからの更新も登録
         if(isBot){
             const newPost = await new Post({
                 content: postContent,

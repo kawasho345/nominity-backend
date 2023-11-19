@@ -20,6 +20,7 @@ const PUT = async(request, { params }) => {
         const group = await Group.findById(questionnaire.group_id);
         if(group.members.includes(userId)){
             const dates = await Promise.all(
+                //すでに日程にidがつけられているなら更新、無ければ新規登録
                 questionnaireDates.map(async(date) => {
                     if(date[0]){
                         await Date.findByIdAndUpdate(date[0], {

@@ -6,6 +6,7 @@ const listAllergy = async(groupId) => {
     try{
         await connectDB();
         const group = await Group.findById(groupId);
+        //表示推奨アレルギーを集計
         const allergys = await Promise.all(
             group.members.map(async(memberId) => {
                 const user = await User.findById(memberId);
@@ -20,11 +21,9 @@ const listAllergy = async(groupId) => {
                 return user.allergy_text;
             })
         )
+        //その他アレルギーを集計。ただし、空白を除くためsetで単一化
         const setAllergyTexts = new Set(allergyTexts);
         const arrayAllergyTexts = [...setAllergyTexts];
-        // if(setAllergyTexts.size === 1){
-        //     currentAllergyTexts = allergyTexts.join("\n");
-        // }
 
         await group.updateOne({
             $set: {

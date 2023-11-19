@@ -3,6 +3,7 @@ import { connectDB } from "@/utils/connectDB";
 import { Schedule } from "@/utils/Schedule";
 import { Group } from "@/utils/Group";
 
+//お知らせ登録
 const POST = async(request) => {
     try {
         await connectDB()

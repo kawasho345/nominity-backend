@@ -15,6 +15,7 @@ const DELETE = async(request, { params }) => {
         const group = await Group.findById(questionnaire.group_id);
         if(group.members.includes(userId)){
             await Promise.all(
+                //日程調整に利用した各日程の情報も削除
                 questionnaire.date_ids.map(async(dateId) => {
                     return await Date.findByIdAndDelete(dateId)
                 })

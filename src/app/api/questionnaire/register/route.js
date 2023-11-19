@@ -4,7 +4,7 @@ import { Group } from "@/utils/Group";
 import { Questionnaire } from '@/utils/Questionnaire';
 import { Date } from '@/utils/Date';
 
-//日程調整作成
+//日程調整登録
 const POST = async(request) => {
     try {
         await connectDB();
@@ -18,6 +18,7 @@ const POST = async(request) => {
 
         const group = await Group.findById(groupId);
         if(group.members.includes(userId)){
+            //各日程を登録
             const dates = await Promise.all(
                 questionnaireDates.map(async(date) => {
                     const newDate = await new Date({

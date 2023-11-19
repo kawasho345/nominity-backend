@@ -18,6 +18,7 @@ const GET = async(request) => {
             + start
             + "&format=json"
         ).then((response) => response.json())
+        //名前と住所とurlとimageだけ取得
         const restaurants = result.results.shop.map((restaurant) => {
             return {
                 name: restaurant.name,

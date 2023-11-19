@@ -3,6 +3,7 @@ import { connectDB } from "@/utils/connectDB";
 import { Group } from "@/utils/Group";
 import { User } from "@/utils/User";
 
+//グループを登録
 const POST = async(request) => {
     try {
         await connectDB();
@@ -21,6 +22,7 @@ const POST = async(request) => {
         });
         const group = await newGroup.save();
         const groupId = group._id.toString();
+        //ユーザーの所属グループにgroupIdを追加
         await User.findByIdAndUpdate(userId, {
             $push: { join_groups: groupId }
         })

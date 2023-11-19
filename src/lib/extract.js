@@ -7,8 +7,10 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
 
+//ユーザーの各項目についてtextから食べ物を抽出する
 const extract = async(text, userId, type) => {
     await connectDB();
+    //空白なら終了
     if(!text){
         return;
     }
@@ -29,6 +31,7 @@ const extract = async(text, userId, type) => {
     await user.updateOne({
         $set: { [type]: chatCompletion.choices[0].message.content}
     })
+    //所属グループの好き嫌いアレルギーリストを更新
     user.join_groups.map((groupId) => {
         list(groupId, type);
     })

@@ -6,7 +6,7 @@ import { User } from '@/utils/User';
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
-
+//グループメンバーの好き嫌いからグループ全体の好き嫌いを抽出
 const list = async(groupId, type) => {
     try{
         await connectDB();
@@ -17,6 +17,7 @@ const list = async(groupId, type) => {
                 return user[type]
             })
         )
+        //誰の情報も取得出来なければ終了
         if(!texts.join("")){
             return
         }

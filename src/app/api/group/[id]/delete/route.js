@@ -12,6 +12,7 @@ const DELETE = async(request, { params }) => {
 
         const group = await Group.findById(groupId);
         if(group.members.includes(userId)){
+            //メンバーの所属グループからgroupIdを削除
             await Promise.all(
                 group.members.map(async(memberId) => {
                     return await User.findByIdAndUpdate(memberId, {

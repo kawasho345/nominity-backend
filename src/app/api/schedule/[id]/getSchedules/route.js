@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { connectDB } from "@/utils/connectDB";
 import { Schedule } from "@/utils/Schedule";
 
-//スケジュール情報取得
+//お知らせ取得
 const GET = async(request, { params }) => {
     try{
         await connectDB();

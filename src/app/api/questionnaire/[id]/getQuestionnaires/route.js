@@ -19,9 +19,11 @@ const GET = async(request, { params }) => {
                     group.members.map(async(memberId) => {
                         const user = await User.findById(memberId);
                         const memberSchedule = await Promise.all(
+                            //日程調整に登録された各日程の情報を成形して返す
                             questionnaire.date_ids.map(async(dateId) => {
                                 const date = await Date.findById(dateId);
                                 const dateMap = new Map(date.schedules);
+                                //ユーザーごとに情報が登録されているならその値を、無ければ0を返す
                                 if(dateMap.get(memberId)){
                                     return dateMap.get(memberId);
                                 }else{
@@ -38,26 +40,6 @@ const GET = async(request, { params }) => {
                         return [dateId, date.date];
                     })
                 )
-
-                // let questionnaireMembers = []
-                // const questionnaireDates = await Promise.all(
-                //     questionnaire.date_ids.map(async(dateId) => {
-                //         const date = await Date.findById(dateId);
-                //         const dateMap = new Map(date.schedules);
-                //         const members = [];
-                //         group.members.map((memberId) => {
-                //             if(dateMap.get(memberId)){
-                //                 members.push([memberId, dateMap.get(memberId)]);
-                //                 if(!questionnaireMembers.includes(memberId)){
-                //                     questionnaireMembers.push(memberId);
-                //                 }
-                //             }else{
-                //                 members.push([memberId, 0]);
-                //             }
-                //         })
-                //         return [dateId, date.date, members] 
-                //     })
-                // )
                 
                 return {
                     questionnaireId: questionnaire._id,

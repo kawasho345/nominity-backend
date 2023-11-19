@@ -3,7 +3,7 @@ import { connectDB } from "@/utils/connectDB";
 import { Schedule } from "@/utils/Schedule";
 import { Group } from '@/utils/Group';
 
-//スケジュール情報削除
+//お知らせ削除
 const DELETE = async(request, { params }) => {
     try{
         await connectDB()
