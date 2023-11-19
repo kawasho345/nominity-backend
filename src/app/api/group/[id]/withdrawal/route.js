@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { connectDB } from "@/utils/connectDB";
 import { Group } from "@/utils/Group";
 import { User } from "@/utils/User";
+import { list } from '@/lib/list';
+import { listAllergy } from '@/lib/listAllergy';
 
 //グループを退会
 const PUT = async(request, { params }) => {
@@ -29,9 +31,9 @@ const PUT = async(request, { params }) => {
                 "hated_alcohol",
             ]
             types.map((type) => {
-                list(joinGroupId, type);    
+                list(groupId, type);    
             })
-            listAllergy(joinGroupId);   
+            listAllergy(groupId);   
         
             return NextResponse.json(
                 { status: 204 },
